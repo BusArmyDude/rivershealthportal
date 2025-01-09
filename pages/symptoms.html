@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptoms - Health Portal</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="activity.html">Activity</a></li>
+            <li><a href="body-measurements.html">Body Measurements</a></li>
+            <li><a href="hearing.html">Hearing</a></li>
+            <li><a href="heart.html">Heart</a></li>
+            <li><a href="medications.html">Medications</a></li>
+            <li><a href="mental-wellbeing.html">Mental Wellbeing</a></li>
+            <li><a href="mobility.html">Mobility</a></li>
+            <li><a href="respiratory.html">Respiratory</a></li>
+            <li><a href="sleep.html">Sleep</a></li>
+            <li><a href="vitals.html">Vitals</a></li>
+            <li><a href="other-data.html">Other Data</a></li>
+            <li><a href="health-records.html">Health Records</a></li>
+            <li><a href="symptoms.html">Symptoms</a></li>
+        </ul>
+    </nav>
+
+    <!-- Content for Symptoms -->
+    <section id="symptoms">
+        <h2>Symptoms Tracker</h2>
+        <p>Track and log your symptoms, including severity and frequency, to help monitor your health over time.</p>
+
+        <!-- Symptoms List -->
+        <div id="symptom-list">
+            <ul>
+                <li>
+                    <label for="dizziness">Dizziness</label>
+                    <input type="checkbox" id="dizziness" name="symptom" value="Dizziness">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="dizziness-severity">
+                    <input type="date" id="dizziness-date">
+                </li>
+                <li>
+                    <label for="headache">Headache</label>
+                    <input type="checkbox" id="headache" name="symptom" value="Headache">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="headache-severity">
+                    <input type="date" id="headache-date">
+                </li>
+                <li>
+                    <label for="abdominal-cramps">Abdominal Cramps</label>
+                    <input type="checkbox" id="abdominal-cramps" name="symptom" value="Abdominal Cramps">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="abdominal-cramps-severity">
+                    <input type="date" id="abdominal-cramps-date">
+                </li>
+                <li>
+                    <label for="acne">Acne</label>
+                    <input type="checkbox" id="acne" name="symptom" value="Acne">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="acne-severity">
+                    <input type="date" id="acne-date">
+                </li>
+                <li>
+                    <label for="appetite-changes">Appetite Changes</label>
+                    <input type="checkbox" id="appetite-changes" name="symptom" value="Appetite Changes">
+                    <input type="text" placeholder="Severity (e.g., Increased, Decreased)" id="appetite-changes-severity">
+                    <input type="date" id="appetite-changes-date">
+                </li>
+                <li>
+                    <label for="bladder-incontinence">Bladder Incontinence</label>
+                    <input type="checkbox" id="bladder-incontinence" name="symptom" value="Bladder Incontinence">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="bladder-incontinence-severity">
+                    <input type="date" id="bladder-incontinence-date">
+                </li>
+                <li>
+                    <label for="bloating">Bloating</label>
+                    <input type="checkbox" id="bloating" name="symptom" value="Bloating">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="bloating-severity">
+                    <input type="date" id="bloating-date">
+                </li>
+                <li>
+                    <label for="body-ache">Body and Muscle Ache</label>
+                    <input type="checkbox" id="body-ache" name="symptom" value="Body and Muscle Ache">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="body-ache-severity">
+                    <input type="date" id="body-ache-date">
+                </li>
+                <li>
+                    <label for="breast-pain">Breast Pain</label>
+                    <input type="checkbox" id="breast-pain" name="symptom" value="Breast Pain">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="breast-pain-severity">
+                    <input type="date" id="breast-pain-date">
+                </li>
+                <li>
+                    <label for="chest-pain">Chest Tightness or Pain</label>
+                    <input type="checkbox" id="chest-pain" name="symptom" value="Chest Tightness or Pain">
+                    <input type="text" placeholder="Severity (e.g., Mild, Severe)" id="chest-pain-severity">
+                    <input type="date" id="chest-pain-date">
+                </li>
+                <!-- Additional symptoms can be added similarly -->
+            </ul>
+        </div>
+        
+        <!-- Save button -->
+        <button id="save-symptoms">Save Symptoms</button>
+    </section>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
