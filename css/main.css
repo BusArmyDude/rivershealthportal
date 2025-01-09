@@ -1,25 +1,156 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
 nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 15px;
-  background-color: #333;
-  padding: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
 nav ul li {
-  display: inline;
+    display: inline-block;
+    margin-right: 20px;
 }
 
 nav ul li a {
-  text-decoration: none;
-  color: white;
-  padding: 10px 15px;
-  background-color: #555;
-  border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 nav ul li a:hover {
-  background-color: #777;
+    text-decoration: underline;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#symptoms ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#symptoms li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+#symptoms li label {
+    font-size: 16px;
+    color: #333;
+}
+
+#symptoms li input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+#symptoms li input[type="text"] {
+    padding: 5px;
+    width: 150px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#symptoms li input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#save-symptoms {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#save-symptoms:hover {
+    background-color: #0056b3;
+}
+
+/* Specific Page Styles */
+#symptoms {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#symptom-list ul {
+    padding-left: 20px;
+}
+
+#symptom-list li {
+    margin-bottom: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul li {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    section {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    #symptoms li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #symptoms li input[type="text"],
+    #symptoms li input[type="date"] {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    #save-symptoms {
+        width: 100%;
+    }
 }
