@@ -1,156 +1,130 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f4f8;
+  color: #333;
 }
 
-h1, h2, h3 {
-    color: #333;
-}
-
-a {
-    text-decoration: none;
-    color: #007bff;
-}
-
-a:hover {
-    color: #0056b3;
-}
-
-nav {
-    background-color: #333;
-    color: white;
-    padding: 10px;
+header {
+  background-color: #007bff;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 1rem 0;
+  list-style: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul li {
-    display: inline-block;
-    margin-right: 20px;
+  margin: 0 1rem;
 }
 
 nav ul li a {
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
+  text-decoration: none;
+  color: #333;
+  padding: 0.75rem 1.25rem;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  border-radius: 4px;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+  background-color: #007bff;
+  color: white;
 }
 
+/* Section Styling */
 section {
-    margin: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#symptoms ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#symptoms li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-#symptoms li label {
-    font-size: 16px;
-    color: #333;
-}
-
-#symptoms li input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-#symptoms li input[type="text"] {
-    padding: 5px;
-    width: 150px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#symptoms li input[type="date"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#save-symptoms {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-#save-symptoms:hover {
-    background-color: #0056b3;
-}
-
-/* Specific Page Styles */
-#symptoms {
-    max-width: 800px;
-    margin: 0 auto;
+h1 {
+  font-size: 2rem;
+  color: #007bff;
+  text-align: center;
 }
 
 h2 {
-    text-align: center;
-    margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-#symptom-list ul {
-    padding-left: 20px;
+p {
+  line-height: 1.6;
+  color: #666;
 }
 
-#symptom-list li {
-    margin-bottom: 15px;
+/* Buttons */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Forms */
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+footer {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    nav ul li {
-        display: block;
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
+  nav ul {
+    flex-direction: column;
+  }
 
-    section {
-        margin: 10px;
-        padding: 15px;
-    }
+  nav ul li {
+    margin-bottom: 1rem;
+  }
 
-    #symptoms li {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    #symptoms li input[type="text"],
-    #symptoms li input[type="date"] {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    #save-symptoms {
-        width: 100%;
-    }
+  section {
+    padding: 1rem;
+  }
 }
