@@ -123,7 +123,7 @@ nav a:hover {
   margin-bottom: 1rem;
 }
 
-/* Health Alerts (Emergency Style) */
+/* Health Alerts (with Icon and Animation) */
 #alerts-container {
   display: flex;
   flex-direction: column;
@@ -139,14 +139,31 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 1rem;
-  animation: pulseAlert 2s infinite, flashWarning 1s alternate infinite;
+  animation: pulseAlert 2s infinite, shakeAlert 1s infinite;
   box-shadow: 0 0 12px rgba(255, 59, 48, 0.5);
   transition: background var(--transition);
 }
 
 .alert-icon {
-  font-size: 1.5rem;
+  font-size: 2rem;
   animation: rotate 2s linear infinite;
+}
+
+.alert-text {
+  flex: 1;
+}
+
+.alert button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.alert button:hover {
+  color: #ffb3b3;
 }
 
 /* Animation for Pulsing Alerts */
@@ -165,16 +182,22 @@ nav a:hover {
   }
 }
 
-/* Flashing Red Background for More Urgency */
-@keyframes flashWarning {
+/* Animation for Shaking Alert */
+@keyframes shakeAlert {
   0% {
-    background-color: var(--danger-color);
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
   }
   50% {
-    background-color: #ff7261;
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
   }
   100% {
-    background-color: var(--danger-color);
+    transform: translateX(0);
   }
 }
 
@@ -189,16 +212,33 @@ nav a:hover {
 }
 
 /* Mobile-friendly adjustments */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
+  /* Adjusting tile layout for medium screens */
+  #summary {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .tile {
+    font-size: 1rem;
+  }
+
+  .trend {
+    font-size: 1rem;
+  }
+
   .alert {
     font-size: 1rem;
     padding: 0.8rem;
   }
 
   .alert-icon {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
+}
 
+/* Tablet and Mobile Screens */
+@media screen and (max-width: 768px) {
+  /* Simplify layout for smaller screens */
   #summary {
     grid-template-columns: 1fr;
   }
@@ -207,8 +247,49 @@ nav a:hover {
     font-size: 1rem;
   }
 
-  #trends .trend {
+  .trend {
     font-size: 1rem;
+  }
+
+  #alerts-container {
+    gap: 1rem;
+  }
+
+  .alert {
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .alert-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .alert button {
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Screens */
+@media screen and (max-width: 480px) {
+  /* Adjust for small mobile devices */
+  body {
+    font-size: 14px;
+  }
+
+  .tile {
+    font-size: 0.9rem;
+  }
+
+  .alert {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  .alert-icon {
+    font-size: 1.2rem;
   }
 }
 
