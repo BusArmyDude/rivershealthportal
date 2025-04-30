@@ -1,460 +1,310 @@
-/* Root-level variables for colors and theme - iOS Inspired */
+/* Root-level variables for colors and theme */
 :root {
-  --system-blue: #007aff; /* Standard iOS Blue */
-  --system-red: #ff3b30; /* Standard iOS Red */
-  --system-green: #34c759; /* Standard iOS Green */
-  --system-yellow: #ffcc00; /* Standard iOS Yellow */
-  --system-gray-1-light: #f2f2f7; /* Light Gray Background (like Settings list) */
-  --system-gray-6-light: #f2f2f7; /* Light Background for elements/tiles */
-  --system-background-light: #ffffff; /* Primary Light Background */
-  --system-text-light: #000000; /* Primary Light Text */
-
-  --system-gray-1-dark: #1c1c1e; /* Dark Gray Background (like Settings list) */
-  --system-gray-6-dark: #2c2c2e; /* Dark Background for elements/tiles */
-  --system-background-dark: #000000; /* Primary Dark Background */
-  --system-text-dark: #ffffff; /* Primary Dark Text */
-
-  --shadow-color-light: rgba(0, 0, 0, 0.1); /* Softer shadow for light mode */
-  --shadow-color-dark: rgba(0, 0, 0, 0.4); /* Adapted shadow for dark mode */
-
-  --primary-color: var(--system-blue);
-  --secondary-color: var(--system-gray-6-light); /* Element background */
-  --background-color: var(--system-background-light); /* Page background */
-  --text-color: var(--system-text-light);
-  --danger-color: var(--system-red);
-  --success-color: var(--system-green);
-  --warning-color: var(--system-yellow);
-  --shadow-color: var(--shadow-color-light);
-
-  --transition-fast: 0.2s ease-out; /* Faster, snappier transitions */
-  --transition-medium: 0.3s ease;
-  --icon-size: 1.5rem; /* Default icon size */
-  --standard-padding: 16px;
-  --standard-border-radius: 12px; /* Common iOS corner radius */
+  --primary-color: #007aff; /* Apple blue */
+  --secondary-color: #f7f7f7; /* Light background */
+  --background-color-light: #ffffff; /* Light mode background */
+  --background-color-dark: #1c1c1e; /* Dark mode background */
+  --text-color-light: #000000; /* Light mode text */
+  --text-color-dark: #ffffff; /* Dark mode text */
+  --circle-ring-color: #dcdcdc; /* Incomplete circle color */
+  --circle-fill-color: #4cd964; /* Progress circle color */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Light shadow */
+  --transition: 0.3s ease; /* Smooth transition */
+  --icon-size: 1.6rem; /* Icon size */
+  --default-font-size: 16px;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 /* Dark Mode variables */
 [data-theme='dark'] {
-  --secondary-color: var(--system-gray-6-dark);
-  --background-color: var(--system-background-dark);
-  --text-color: var(--system-text-dark);
-  --shadow-color: var(--shadow-color-dark);
-  /* Status colors often remain the same in dark mode */
+  --background-color-light: #1c1c1e;
+  --background-color-dark: #000000;
+  --text-color-light: #ffffff;
+  --text-color-dark: #000000;
+  --circle-ring-color: #444;
+  --circle-fill-color: #4cd964;
 }
 
-/* General Reset */
-*,
-*::before,
-*::after {
+/* Global Body Styling */
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+  line-height: 1.6;
+  font-size: var(--default-font-size);
+  transition: background-color var(--transition), color var(--transition);
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body Styles - Using Apple System Font */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  line-height: 1.5;
-  font-size: 17px; /* Base font size */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--transition-medium),
-    color var(--transition-medium);
 }
 
 main {
-  padding: var(--standard-padding);
+  padding: 2rem;
 }
 
-/* === Header Navigation - iOS Style with Mobile Toggle === */
+/* Global Navigation Bar */
 nav {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 100;
-  padding: 0 var(--standard-padding); /* Horizontal padding */
-  width: 100%;
-  transition: background-color var(--transition-medium), border-color var(--transition-medium);
-  position: relative;
-  display: flex;
-  /* Align items vertically in case of wrapping */
-  align-items: center;
-  min-height: 50px; /* Ensure minimum height, may grow if content wraps */
+  background-color: var(--primary-color);
+  padding: 10px 0;
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
-[data-theme='dark'] nav {
-    background-color: rgba(28, 28, 30, 0.8);
-    border-bottom-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Navigation Links List (UL) - Desktop */
-nav ul.nav-links {
-  display: flex; /* Use flexbox */
-  flex-wrap: wrap; /* <<< ALLOW WRAPPING on desktop */
-  justify-content: flex-start; /* <<< ALIGN TO START (left) on desktop */
-  align-items: center;
-  /* Adjust gap - maybe slightly smaller horizontally, add vertical gap for wrapped lines */
-  column-gap: 1.25rem; /* Horizontal gap */
-  row-gap: 0px; /* Vertical gap when wrapped (adjust if needed) */
+nav ul {
   list-style: none;
-  padding: 5px 0; /* Add some vertical padding inside UL for wrapped content */
-  margin: 0;
-  flex-grow: 1;
-  /* Remove overflow and scrollbar styles */
-}
-
-/* Navigation Links (A) - Desktop & Mobile Base */
-nav a {
-  display: block;
-  /* Adjust padding slightly - less vertical needed if UL has padding */
-  padding: 8px 0;
-  font-weight: 500;
-  font-size: 17px;
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: opacity var(--transition-fast);
-  white-space: nowrap; /* Keep individual links on one line */
-}
-
-nav a:hover {
-  opacity: 0.7;
-}
-
-/* Hamburger Toggle Button */
-.nav-toggle {
-  display: none; /* Hidden by default on desktop */
-  background: none;
-  border: none;
-  color: var(--primary-color);
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 8px;
-  line-height: 1;
-  /* Position absolutely relative to nav, but check alignment */
-  /* Let's remove absolute positioning and use flex order for simplicity */
-  /* position: absolute; */
-  /* right: var(--standard-padding); */
-  /* top: 50%; */
-  /* transform: translateY(-50%); */
-  z-index: 110;
-  /* Add margin if needed when using flex */
-  margin-left: auto; /* Pushes button to the right if needed */
-}
-
-.nav-toggle:hover {
-  opacity: 0.7;
-}
-
-
-/* === Mobile Navigation Styles (<= 768px) === */
-@media (max-width: 768px) {
-  nav {
-    /* On mobile, nav contains only the button initially */
-    justify-content: flex-end; /* Button aligned to the right */
-  }
-
-  .nav-toggle {
-    display: block; /* Show the hamburger button */
-    /* Ensure margin doesn't conflict */
-    margin-left: 0;
-  }
-
-  /* Hide the links list container by default on mobile */
-  nav ul.nav-links {
-    display: none; /* Hide initially */
-    position: absolute;
-    top: 100%; /* Position below the nav bar */
-    left: 0;
-    width: 100%;
-    background-color: var(--background-color);
-    box-shadow: 0 4px 8px var(--shadow-color);
-    flex-direction: column; /* Stack items vertically */
-    align-items: stretch; /* Make items full width */
-    gap: 0; /* Reset gap for vertical list */
-    padding: 0; /* Reset padding */
-    max-height: calc(100vh - 51px); /* Limit height */
-    overflow-y: auto; /* Enable scrolling */
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    /* Reset wrap property */
-    flex-wrap: nowrap;
-    scrollbar-width: none; /* Hide scrollbar */
-  }
-  nav ul.nav-links::-webkit-scrollbar {
-      display: none; /* Hide scrollbar */
-  }
-
-  [data-theme='dark'] nav ul.nav-links {
-     border-top-color: rgba(255, 255, 255, 0.15);
-  }
-
-  /* Show the links list when nav has .nav-open class */
-  nav.nav-open ul.nav-links {
-    display: flex;
-  }
-
-  /* Style individual links in the mobile menu */
-  nav ul.nav-links li {
-    width: 100%;
-    border-bottom: 1px solid var(--system-gray-1-light);
-  }
-   [data-theme='dark'] nav ul.nav-links li {
-       border-bottom-color: var(--system-gray-6-dark);
-   }
-
-  nav ul.nav-links li:last-child {
-    border-bottom: none;
-  }
-
-  nav ul.nav-links a {
-    padding: 16px var(--standard-padding); /* Restore mobile padding */
-    width: 100%;
-    font-size: 16px;
-    white-space: normal; /* Allow links to wrap */
-  }
-
-  nav ul.nav-links a:hover {
-     background-color: var(--secondary-color);
-     opacity: 1;
-  }
-}
-
-/* Minor adjustments for very small screens */
-@media (max-width: 480px) {
-   nav ul.nav-links a {
-     padding: 14px var(--standard-padding);
-     font-size: 16px;
-   }
-   .nav-toggle {
-     font-size: 1.8rem;
-   }
-}
-
-/* === Health Alerts - iOS Style with Animation === */
-#alerts-container {
   display: flex;
-  flex-direction: column;
-  gap: var(--standard-padding);
-  margin-top: 1.5rem;
-}
-
-.alert {
-  background-color: var(--danger-color);
-  color: #fff;
-  padding: var(--standard-padding);
-  border-radius: var(--standard-border-radius);
-  font-weight: 600;
-  display: flex;
+  justify-content: space-around;
   align-items: center;
-  gap: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: slideFadeIn 0.5s ease-out forwards;
 }
 
-/* Stagger animation */
-.alert:nth-child(1) { animation-delay: 0.1s; }
-.alert:nth-child(2) { animation-delay: 0.2s; }
-.alert:nth-child(3) { animation-delay: 0.3s; }
-
-
-.alert-icon {
-  font-size: var(--icon-size);
-  flex-shrink: 0;
+nav ul li {
+  padding: 10px 20px;
 }
 
-.alert-text {
-  flex-grow: 1;
-  font-size: 16px;
-  line-height: 1.4;
+nav ul li a {
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
 
-.alert button {
-  background: rgba(255, 255, 255, 0.2);
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Global Button Styles */
+button {
+  padding: 10px 20px;
+  border-radius: 12px;
   border: none;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 6px 12px;
-  border-radius: calc(var(--standard-border-radius) / 1.5);
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color var(--transition-fast);
-  margin-left: auto;
-  flex-shrink: 0;
+  transition: background-color var(--transition);
 }
 
-.alert button:hover {
-  background: rgba(255, 255, 255, 0.35);
+button:hover {
+  background-color: #0051a8;
 }
 
-/* Animation for Alert Entry */
-@keyframes slideFadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Page Header */
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
 }
 
-/* Animation for Alert Dismissal (Add class 'dismissing' via JS) */
-.alert.dismissing {
-  animation: slideFadeOut 0.4s ease-in forwards;
+p {
+  font-size: 1rem;
 }
 
-@keyframes slideFadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.9);
-    margin-bottom: calc(-1 * (2 * var(--standard-padding) + 30px)); /* Approximate height */
-    padding-top: 0;
-    padding-bottom: 0;
-    border-width: 0;
-    min-height: 0;
-  }
-}
-
-
-/* === Tile Layout for Health Dashboard - iOS Widget/Card Style === */
-#summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--standard-padding);
-  margin-top: 1.5rem;
-}
-
-.tile {
-  background-color: var(--secondary-color);
-  border-radius: var(--standard-border-radius);
-  padding: var(--standard-padding);
-  box-shadow: 0 1px 3px var(--shadow-color);
-  font-size: 17px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  font-weight: 400;
-  transition: background-color var(--transition-medium);
-}
-
-/* Example structure within a tile */
-.tile .tile-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-color);
-    opacity: 0.8;
-}
-
-.tile .tile-value {
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--text-color);
-}
-
-.tile .tile-unit {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-color);
-    opacity: 0.6;
-}
-
-
-/* === Trends Section - iOS List Style === */
-#trends {
-  margin-top: 1.5rem;
-}
-
-.trend {
-  background-color: var(--secondary-color);
-  padding: 12px var(--standard-padding);
-  border-radius: var(--standard-border-radius);
-  box-shadow: 0 1px 3px var(--shadow-color);
-  font-size: 17px;
-  font-weight: 400;
-  margin-bottom: var(--standard-padding);
+/* Activity Page Specific Styles */
+#activity-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background-color var(--transition-medium);
+  margin-bottom: 2rem;
 }
 
-/* Example structure within a trend item */
-.trend .trend-label {
-    font-weight: 500;
+#activity-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
 }
 
-.trend .trend-indicator {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--system-green); /* Example color */
+#activity-header .date {
+  font-size: 1rem;
+  font-weight: 500;
 }
 
+/* Activity Rings */
+.activity-rings {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
 
-/* === General Responsive Design Adjustments (Excluding Nav) === */
-@media screen and (max-width: 1200px) {
-  #summary {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+.activity-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--circle-ring-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.activity-ring .progress-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: circle(50% at 50% 50%);
+  stroke-dasharray: 283; /* Circumference of the circle */
+  stroke-dashoffset: calc(283 - (283 * var(--progress)) / 100); /* Offset to show progress */
+  stroke-width: 10;
+  stroke: var(--circle-fill-color);
+  transform: rotate(-90deg);
+}
+
+.activity-ring .label {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Activity Summary (Steps, Calories, etc.) */
+#activity-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.summary-item {
+  background-color: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 12px;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.summary-item h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.summary-item p {
+  font-size: 1.2rem;
+}
+
+/* Trends History Section */
+#activity-history {
+  margin-top: 2rem;
+}
+
+#activity-history canvas {
+  width: 100%;
+  height: 400px;
+  background-color: var(--secondary-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Health Alerts */
+#alerts-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  position: relative;
+  animation: pulse 1.5s infinite;
+}
+
+.alert.icon {
+  margin-right: 10px;
+}
+
+.alert h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.alert .close-btn {
+  background: transparent;
+  border: none;
+  color: #721c24;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
+/* Responsive Layout */
 @media screen and (max-width: 768px) {
-  /* Base body size adjustment is already handled */
-
-  #summary {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  #activity-summary {
+    flex-direction: column;
+    gap: 1rem;
   }
-  .tile, .trend {
-    font-size: 16px;
-    padding: 14px;
-  }
-  .tile .tile-value { font-size: 26px; }
 
-  .alert {
-    font-size: 15px;
-    padding: 14px;
-    gap: 10px;
+  .summary-item {
+    width: 100%;
   }
-   .alert-icon { font-size: 1.4rem; }
-   .alert button { font-size: 13px; padding: 5px 10px; }
 
+  .activity-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .activity-ring .label {
+    font-size: 1.2rem;
+  }
+
+  #activity-history canvas {
+    height: 300px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul li {
+    padding: 5px 0;
+  }
 }
 
 @media screen and (max-width: 480px) {
-  /* Base body size adjustment is already handled */
-
-  main {
-    padding: 12px;
-  }
-  #summary {
-    grid-template-columns: 1fr; /* Stack tiles */
-    gap: 12px;
-  }
-  .tile, .trend {
-    font-size: 15px;
-    padding: 12px;
-    border-radius: 10px;
-  }
-   .tile .tile-value { font-size: 24px; }
-   .tile .tile-title { font-size: 14px; }
-   .tile .tile-unit { font-size: 14px; }
-
-
-  #alerts-container { gap: 12px; }
-  .alert {
+  body {
     font-size: 14px;
-    padding: 12px;
-    gap: 8px;
   }
-  .alert-icon { font-size: 1.3rem; }
-  .alert button { font-size: 12px; padding: 4px 8px; }
 
+  #activity-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .summary-item h2 {
+    font-size: 1.5rem;
+  }
+
+  .activity-ring .label {
+    font-size: 1rem;
+  }
+
+  .alert {
+    font-size: 0.9rem;
+  }
+}
+
+/* Light/Dark Mode Styles */
+[data-theme='dark'] {
+  --background-color-light: #1c1c1e;
+  --background-color-dark: #000000;
+  --text-color-light: #ffffff;
+  --text-color-dark: #000000;
+  --circle-ring-color: #444;
+  --circle-fill-color: #4cd964;
 }
