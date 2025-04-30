@@ -1,19 +1,20 @@
 /* Root-level variables for colors and theme */
 :root {
-  --primary-color: #007aff;
-  --secondary-color: #f7f7f7;
-  --background-color-light: #ffffff;
-  --background-color-dark: #1c1c1e;
-  --text-color-light: #000000;
-  --text-color-dark: #ffffff;
-  --danger-color: #ff3b30;
-  --success-color: #4cd964;
-  --warning-color: #ffcc00;
-  --transition: 0.3s ease;
-  --shadow-color: rgba(0, 0, 0, 0.2);
+  --primary-color: #007aff; /* Apple blue */
+  --secondary-color: #f7f7f7; /* Light background */
+  --background-color-light: #ffffff; /* Light mode background */
+  --background-color-dark: #1c1c1e; /* Dark mode background */
+  --text-color-light: #000000; /* Light mode text */
+  --text-color-dark: #ffffff; /* Dark mode text */
+  --danger-color: #ff3b30; /* Danger (Red) */
+  --success-color: #4cd964; /* Success (Green) */
+  --warning-color: #ffcc00; /* Warning (Yellow) */
+  --shadow-color: rgba(0, 0, 0, 0.1); /* Light shadow */
+  --transition: 0.3s ease; /* Smooth transition */
+  --icon-size: 1.6rem; /* Icon size */
 }
 
-/* Dark mode variables */
+/* Dark Mode variables */
 [data-theme='dark'] {
   --background-color-light: #1c1c1e;
   --background-color-dark: #000000;
@@ -24,7 +25,7 @@
   --warning-color: #ffcc00;
 }
 
-/* General Styles */
+/* General Reset */
 *,
 *::before,
 *::after {
@@ -43,32 +44,18 @@ body {
 }
 
 main {
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
-h1,
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-a {
-  text-decoration: none;
-  color: var(--primary-color);
-  transition: color var(--transition);
-}
-
-a:hover {
-  color: #0051b8;
-}
-
-/* Header and Navigation */
+/* Header Navigation */
 nav {
   background-color: var(--background-color-light);
   position: sticky;
   top: 0;
   box-shadow: 0 1px 5px var(--shadow-color);
-  padding: 1rem 0;
+  z-index: 10;
+  padding: 1rem;
+  width: 100%;
 }
 
 nav ul {
@@ -80,18 +67,121 @@ nav ul {
 
 nav a {
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--text-color-light);
+  transition: color var(--transition);
 }
 
 nav a:hover {
   color: var(--primary-color);
 }
 
-/* Health Dashboard - Summary Tiles */
+/* Responsive Nav Bar */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  nav a {
+    font-size: 1.2rem;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Health Alerts (with Icon and Animation) */
+#alerts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.alert {
+  background-color: var(--danger-color);
+  color: #fff;
+  padding: 1rem;
+  border-radius: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: pulseAlert 2s infinite, shakeAlert 1s infinite;
+  box-shadow: 0 0 12px rgba(255, 59, 48, 0.5);
+  transition: background var(--transition);
+}
+
+.alert-icon {
+  font-size: var(--icon-size);
+  animation: rotate 2s linear infinite;
+}
+
+.alert-text {
+  flex: 1;
+}
+
+.alert button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.alert button:hover {
+  color: #ffb3b3;
+}
+
+/* Animations for Alerts */
+@keyframes pulseAlert {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 24px rgba(255, 59, 48, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
+  }
+}
+
+@keyframes shakeAlert {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Rotation for Alert Icons */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Tile Layout for Health Dashboard */
 #summary {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
@@ -99,7 +189,7 @@ nav a:hover {
 .tile {
   background-color: var(--secondary-color);
   border-radius: 16px;
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: 0 2px 8px var(--shadow-color);
   font-size: 1.2rem;
   display: flex;
@@ -123,97 +213,8 @@ nav a:hover {
   margin-bottom: 1rem;
 }
 
-/* Health Alerts (with Icon and Animation) */
-#alerts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.alert {
-  background: var(--danger-color);
-  color: #fff;
-  padding: 1rem;
-  border-radius: 16px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  animation: pulseAlert 2s infinite, shakeAlert 1s infinite;
-  box-shadow: 0 0 12px rgba(255, 59, 48, 0.5);
-  transition: background var(--transition);
-}
-
-.alert-icon {
-  font-size: 2rem;
-  animation: rotate 2s linear infinite;
-}
-
-.alert-text {
-  flex: 1;
-}
-
-.alert button {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: color var(--transition);
-}
-
-.alert button:hover {
-  color: #ffb3b3;
-}
-
-/* Animation for Pulsing Alerts */
-@keyframes pulseAlert {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
-  }
-  50% {
-    transform: scale(1.05);
-    box-shadow: 0 0 24px rgba(255, 59, 48, 0.9);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 8px rgba(255, 59, 48, 0.6);
-  }
-}
-
-/* Animation for Shaking Alert */
-@keyframes shakeAlert {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-/* Rotation for Alert Icons */
-@keyframes rotate {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Mobile-friendly adjustments */
+/* Responsive Design for Small Screens */
 @media screen and (max-width: 1200px) {
-  /* Adjusting tile layout for medium screens */
   #summary {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
@@ -236,9 +237,7 @@ nav a:hover {
   }
 }
 
-/* Tablet and Mobile Screens */
 @media screen and (max-width: 768px) {
-  /* Simplify layout for smaller screens */
   #summary {
     grid-template-columns: 1fr;
   }
@@ -272,9 +271,7 @@ nav a:hover {
   }
 }
 
-/* Extra Small Screens */
 @media screen and (max-width: 480px) {
-  /* Adjust for small mobile devices */
   body {
     font-size: 14px;
   }
@@ -303,3 +300,4 @@ nav a:hover {
   --success-color: #4cd964;
   --warning-color: #ffcc00;
 }
+
