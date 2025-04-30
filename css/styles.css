@@ -78,15 +78,15 @@ nav {
   position: sticky;
   top: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  z-index: 100; /* Ensure nav is above other content */
+  z-index: 100;
   padding: 0 var(--standard-padding); /* Horizontal padding */
   width: 100%;
   transition: background-color var(--transition-medium), border-color var(--transition-medium);
-  position: relative; /* For positioning toggle and menu */
+  position: relative;
   display: flex;
-  justify-content: center; /* Center links on desktop */
+  /* Align items vertically in case of wrapping */
   align-items: center;
-  min-height: 50px; /* Consistent height */
+  min-height: 50px; /* Ensure minimum height, may grow if content wraps */
 }
 
 [data-theme='dark'] nav {
@@ -94,45 +94,33 @@ nav {
     border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Navigation Links List (UL) */
+/* Navigation Links List (UL) - Desktop */
 nav ul.nav-links {
-  display: flex; /* Horizontal row on desktop */
-  justify-content: center;
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* <<< ALLOW WRAPPING on desktop */
+  justify-content: flex-start; /* <<< ALIGN TO START (left) on desktop */
   align-items: center;
-  gap: 1.5rem;
+  /* Adjust gap - maybe slightly smaller horizontally, add vertical gap for wrapped lines */
+  column-gap: 1.25rem; /* Horizontal gap */
+  row-gap: 0px; /* Vertical gap when wrapped (adjust if needed) */
   list-style: none;
-  padding: 0;
+  padding: 5px 0; /* Add some vertical padding inside UL for wrapped content */
   margin: 0;
-  flex-grow: 1; /* Allow links to take space */
-  /* Hide horizontal scrollbar if items overflow slightly on desktop */
-  overflow-x: auto;
-  /* Improve scrollbar appearance (optional) */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: var(--primary-color) transparent; /* Firefox */
-}
-/* Webkit Scrollbar Styles (optional) */
-nav ul.nav-links::-webkit-scrollbar {
-  height: 4px; /* Adjust height */
-}
-nav ul.nav-links::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
-  border-radius: 2px;
-}
-nav ul.nav-links::-webkit-scrollbar-track {
-  background: transparent;
+  flex-grow: 1;
+  /* Remove overflow and scrollbar styles */
 }
 
-
-/* Navigation Links (A) */
+/* Navigation Links (A) - Desktop & Mobile Base */
 nav a {
   display: block;
-  padding: 12px 0; /* Vertical padding for desktop links */
+  /* Adjust padding slightly - less vertical needed if UL has padding */
+  padding: 8px 0;
   font-weight: 500;
   font-size: 17px;
   color: var(--primary-color);
   text-decoration: none;
   transition: opacity var(--transition-fast);
-  white-space: nowrap; /* Prevent links from wrapping */
+  white-space: nowrap; /* Keep individual links on one line */
 }
 
 nav a:hover {
@@ -149,25 +137,33 @@ nav a:hover {
   cursor: pointer;
   padding: 8px;
   line-height: 1;
-  position: absolute; /* Position relative to nav */
-  right: var(--standard-padding);
-  top: 50%;
-  transform: translateY(-50%);
+  /* Position absolutely relative to nav, but check alignment */
+  /* Let's remove absolute positioning and use flex order for simplicity */
+  /* position: absolute; */
+  /* right: var(--standard-padding); */
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
   z-index: 110;
+  /* Add margin if needed when using flex */
+  margin-left: auto; /* Pushes button to the right if needed */
 }
 
 .nav-toggle:hover {
   opacity: 0.7;
 }
 
+
 /* === Mobile Navigation Styles (<= 768px) === */
 @media (max-width: 768px) {
   nav {
-    justify-content: flex-end; /* Align button to the right */
+    /* On mobile, nav contains only the button initially */
+    justify-content: flex-end; /* Button aligned to the right */
   }
 
   .nav-toggle {
     display: block; /* Show the hamburger button */
+    /* Ensure margin doesn't conflict */
+    margin-left: 0;
   }
 
   /* Hide the links list container by default on mobile */
@@ -177,22 +173,22 @@ nav a:hover {
     top: 100%; /* Position below the nav bar */
     left: 0;
     width: 100%;
-    background-color: var(--background-color); /* Use page background */
+    background-color: var(--background-color);
     box-shadow: 0 4px 8px var(--shadow-color);
     flex-direction: column; /* Stack items vertically */
     align-items: stretch; /* Make items full width */
-    gap: 0; /* Remove gap */
-    padding: 0;
-    max-height: calc(100vh - 51px); /* Limit height (adjust 51px if nav height changes) */
+    gap: 0; /* Reset gap for vertical list */
+    padding: 0; /* Reset padding */
+    max-height: calc(100vh - 51px); /* Limit height */
     overflow-y: auto; /* Enable scrolling */
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    /* Remove scrollbar styling for mobile dropdown if preferred */
-    scrollbar-width: none; /* Firefox */
+    /* Reset wrap property */
+    flex-wrap: nowrap;
+    scrollbar-width: none; /* Hide scrollbar */
   }
   nav ul.nav-links::-webkit-scrollbar {
-      display: none; /* Webkit */
+      display: none; /* Hide scrollbar */
   }
-
 
   [data-theme='dark'] nav ul.nav-links {
      border-top-color: rgba(255, 255, 255, 0.15);
@@ -206,25 +202,25 @@ nav a:hover {
   /* Style individual links in the mobile menu */
   nav ul.nav-links li {
     width: 100%;
-    border-bottom: 1px solid var(--system-gray-1-light); /* Use light gray 1 for separators */
+    border-bottom: 1px solid var(--system-gray-1-light);
   }
    [data-theme='dark'] nav ul.nav-links li {
-       border-bottom-color: var(--system-gray-6-dark); /* Use dark gray 6 for separators */
+       border-bottom-color: var(--system-gray-6-dark);
    }
 
   nav ul.nav-links li:last-child {
-    border-bottom: none; /* Remove border from last item */
+    border-bottom: none;
   }
 
   nav ul.nav-links a {
-    padding: 16px var(--standard-padding); /* Generous padding for tapping */
+    padding: 16px var(--standard-padding); /* Restore mobile padding */
     width: 100%;
     font-size: 16px;
-    white-space: normal; /* Allow links to wrap if needed */
+    white-space: normal; /* Allow links to wrap */
   }
 
   nav ul.nav-links a:hover {
-     background-color: var(--secondary-color); /* Add hover feedback */
+     background-color: var(--secondary-color);
      opacity: 1;
   }
 }
@@ -411,9 +407,8 @@ nav a:hover {
 }
 
 @media screen and (max-width: 768px) {
-  body {
-      font-size: 16px; /* Adjust base size */
-  }
+  /* Base body size adjustment is already handled */
+
   #summary {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
@@ -434,9 +429,8 @@ nav a:hover {
 }
 
 @media screen and (max-width: 480px) {
-  body {
-    font-size: 15px;
-  }
+  /* Base body size adjustment is already handled */
+
   main {
     padding: 12px;
   }
@@ -447,7 +441,7 @@ nav a:hover {
   .tile, .trend {
     font-size: 15px;
     padding: 12px;
-    border-radius: 10px; /* Slightly smaller radius */
+    border-radius: 10px;
   }
    .tile .tile-value { font-size: 24px; }
    .tile .tile-title { font-size: 14px; }
@@ -459,12 +453,8 @@ nav a:hover {
     font-size: 14px;
     padding: 12px;
     gap: 8px;
-    /* Optional: Stack alert content if needed, though flex-start usually works */
-    /* flex-direction: column; align-items: flex-start; */
   }
   .alert-icon { font-size: 1.3rem; }
   .alert button { font-size: 12px; padding: 4px 8px; }
 
 }
-
-/* Add any specific page styles or further customizations below */
