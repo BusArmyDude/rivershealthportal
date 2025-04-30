@@ -2,15 +2,15 @@
 :root {
   --system-blue: #007aff; /* Standard iOS Blue */
   --system-red: #ff3b30; /* Standard iOS Red */
-  --system-green: #34c759; /* Standard iOS Green (Slightly different from original) */
+  --system-green: #34c759; /* Standard iOS Green */
   --system-yellow: #ffcc00; /* Standard iOS Yellow */
-  --system-gray-1-light: #f2f2f7; /* Light Gray Background (like Settings) */
-  --system-gray-6-light: #f2f2f7; /* Light Background for elements */
+  --system-gray-1-light: #f2f2f7; /* Light Gray Background (like Settings list) */
+  --system-gray-6-light: #f2f2f7; /* Light Background for elements/tiles */
   --system-background-light: #ffffff; /* Primary Light Background */
   --system-text-light: #000000; /* Primary Light Text */
 
-  --system-gray-1-dark: #1c1c1e; /* Dark Gray Background (like Settings) */
-  --system-gray-6-dark: #2c2c2e; /* Dark Background for elements */
+  --system-gray-1-dark: #1c1c1e; /* Dark Gray Background (like Settings list) */
+  --system-gray-6-dark: #2c2c2e; /* Dark Background for elements/tiles */
   --system-background-dark: #000000; /* Primary Dark Background */
   --system-text-dark: #ffffff; /* Primary Dark Text */
 
@@ -28,7 +28,7 @@
 
   --transition-fast: 0.2s ease-out; /* Faster, snappier transitions */
   --transition-medium: 0.3s ease;
-  --icon-size: 1.5rem; /* Slightly smaller default icon size */
+  --icon-size: 1.5rem; /* Default icon size */
   --standard-padding: 16px;
   --standard-border-radius: 12px; /* Common iOS corner radius */
 }
@@ -58,10 +58,10 @@ body {
     sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
-  line-height: 1.5; /* Adjusted line-height */
-  font-size: 17px; /* Common base font size in iOS */
-  -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
-  -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+  line-height: 1.5;
+  font-size: 17px; /* Base font size */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition-medium),
     color var(--transition-medium);
 }
@@ -70,126 +70,235 @@ main {
   padding: var(--standard-padding);
 }
 
-/* Header Navigation - iOS Style */
+/* === Header Navigation - iOS Style with Mobile Toggle === */
 nav {
-  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent light background */
-  backdrop-filter: blur(10px); /* Background blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari */
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: sticky;
   top: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Subtle separator */
-  z-index: 10;
-  padding: 12px var(--standard-padding); /* Adjusted padding */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Ensure nav is above other content */
+  padding: 0 var(--standard-padding); /* Horizontal padding */
   width: 100%;
   transition: background-color var(--transition-medium), border-color var(--transition-medium);
+  position: relative; /* For positioning toggle and menu */
+  display: flex;
+  justify-content: center; /* Center links on desktop */
+  align-items: center;
+  min-height: 50px; /* Consistent height */
 }
 
 [data-theme='dark'] nav {
-    background-color: rgba(28, 28, 30, 0.8); /* Semi-transparent dark background */
+    background-color: rgba(28, 28, 30, 0.8);
     border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
-nav ul {
-  display: flex;
-  justify-content: center; /* Or flex-start / flex-end depending on exact style */
+/* Navigation Links List (UL) */
+nav ul.nav-links {
+  display: flex; /* Horizontal row on desktop */
+  justify-content: center;
+  align-items: center;
   gap: 1.5rem;
   list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Allow links to take space */
+  /* Hide horizontal scrollbar if items overflow slightly on desktop */
+  overflow-x: auto;
+  /* Improve scrollbar appearance (optional) */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--primary-color) transparent; /* Firefox */
+}
+/* Webkit Scrollbar Styles (optional) */
+nav ul.nav-links::-webkit-scrollbar {
+  height: 4px; /* Adjust height */
+}
+nav ul.nav-links::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+nav ul.nav-links::-webkit-scrollbar-track {
+  background: transparent;
 }
 
+
+/* Navigation Links (A) */
 nav a {
+  display: block;
+  padding: 12px 0; /* Vertical padding for desktop links */
   font-weight: 500;
-  font-size: 17px; /* Match body font size */
-  color: var(--primary-color); /* Links are typically blue */
+  font-size: 17px;
+  color: var(--primary-color);
   text-decoration: none;
   transition: opacity var(--transition-fast);
+  white-space: nowrap; /* Prevent links from wrapping */
 }
 
 nav a:hover {
-  opacity: 0.7; /* Subtle hover effect */
+  opacity: 0.7;
 }
 
-/* Responsive Nav Bar */
+/* Hamburger Toggle Button */
+.nav-toggle {
+  display: none; /* Hidden by default on desktop */
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 8px;
+  line-height: 1;
+  position: absolute; /* Position relative to nav */
+  right: var(--standard-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 110;
+}
+
+.nav-toggle:hover {
+  opacity: 0.7;
+}
+
+/* === Mobile Navigation Styles (<= 768px) === */
 @media (max-width: 768px) {
-  /* Keep horizontal nav on tablets, adjust if needed */
-  nav ul {
-    justify-content: space-around; /* Example adjustment */
-    gap: 1rem;
+  nav {
+    justify-content: flex-end; /* Align button to the right */
+  }
+
+  .nav-toggle {
+    display: block; /* Show the hamburger button */
+  }
+
+  /* Hide the links list container by default on mobile */
+  nav ul.nav-links {
+    display: none; /* Hide initially */
+    position: absolute;
+    top: 100%; /* Position below the nav bar */
+    left: 0;
+    width: 100%;
+    background-color: var(--background-color); /* Use page background */
+    box-shadow: 0 4px 8px var(--shadow-color);
+    flex-direction: column; /* Stack items vertically */
+    align-items: stretch; /* Make items full width */
+    gap: 0; /* Remove gap */
+    padding: 0;
+    max-height: calc(100vh - 51px); /* Limit height (adjust 51px if nav height changes) */
+    overflow-y: auto; /* Enable scrolling */
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    /* Remove scrollbar styling for mobile dropdown if preferred */
+    scrollbar-width: none; /* Firefox */
+  }
+  nav ul.nav-links::-webkit-scrollbar {
+      display: none; /* Webkit */
+  }
+
+
+  [data-theme='dark'] nav ul.nav-links {
+     border-top-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Show the links list when nav has .nav-open class */
+  nav.nav-open ul.nav-links {
+    display: flex;
+  }
+
+  /* Style individual links in the mobile menu */
+  nav ul.nav-links li {
+    width: 100%;
+    border-bottom: 1px solid var(--system-gray-1-light); /* Use light gray 1 for separators */
+  }
+   [data-theme='dark'] nav ul.nav-links li {
+       border-bottom-color: var(--system-gray-6-dark); /* Use dark gray 6 for separators */
+   }
+
+  nav ul.nav-links li:last-child {
+    border-bottom: none; /* Remove border from last item */
+  }
+
+  nav ul.nav-links a {
+    padding: 16px var(--standard-padding); /* Generous padding for tapping */
+    width: 100%;
+    font-size: 16px;
+    white-space: normal; /* Allow links to wrap if needed */
+  }
+
+  nav ul.nav-links a:hover {
+     background-color: var(--secondary-color); /* Add hover feedback */
+     opacity: 1;
   }
 }
 
+/* Minor adjustments for very small screens */
 @media (max-width: 480px) {
-    /* Stack nav on very small screens if necessary, though iOS often keeps it horizontal */
-   nav ul {
-     gap: 1.5rem; /* Adjust gap */
+   nav ul.nav-links a {
+     padding: 14px var(--standard-padding);
+     font-size: 16px;
    }
-   nav a {
-     font-size: 16px; /* Slightly smaller on mobile */
+   .nav-toggle {
+     font-size: 1.8rem;
    }
 }
 
-
-/* Health Alerts - iOS Style with Animation */
+/* === Health Alerts - iOS Style with Animation === */
 #alerts-container {
   display: flex;
   flex-direction: column;
   gap: var(--standard-padding);
-  margin-top: 1.5rem; /* Consistent spacing */
+  margin-top: 1.5rem;
 }
 
 .alert {
   background-color: var(--danger-color);
-  color: #fff; /* Text on colored background is usually white */
+  color: #fff;
   padding: var(--standard-padding);
   border-radius: var(--standard-border-radius);
-  font-weight: 600; /* Slightly bolder */
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 12px; /* Adjusted gap */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Standard shadow */
-  opacity: 0; /* Start hidden for animation */
-  transform: translateY(-20px); /* Start slightly up for animation */
-  animation: slideFadeIn 0.5s ease-out forwards; /* iOS-like entry animation */
-  /* Remove pulse/shake, keep it clean */
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: slideFadeIn 0.5s ease-out forwards;
 }
 
-/* Stagger animation for multiple alerts */
+/* Stagger animation */
 .alert:nth-child(1) { animation-delay: 0.1s; }
 .alert:nth-child(2) { animation-delay: 0.2s; }
 .alert:nth-child(3) { animation-delay: 0.3s; }
-/* Add more if needed */
 
 
 .alert-icon {
   font-size: var(--icon-size);
-  flex-shrink: 0; /* Prevent icon from shrinking */
-  /* Removed rotation animation - keep icons static unless signifying action */
+  flex-shrink: 0;
 }
 
 .alert-text {
-  flex-grow: 1; /* Allow text to take available space */
-  font-size: 16px; /* Slightly smaller text within alert */
+  flex-grow: 1;
+  font-size: 16px;
   line-height: 1.4;
 }
 
 .alert button {
-  background: rgba(255, 255, 255, 0.2); /* Subtle button background */
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
   font-weight: 600;
   font-size: 14px;
-  padding: 6px 12px; /* Button padding */
-  border-radius: calc(var(--standard-border-radius) / 1.5); /* Slightly smaller radius */
+  padding: 6px 12px;
+  border-radius: calc(var(--standard-border-radius) / 1.5);
   cursor: pointer;
   transition: background-color var(--transition-fast);
-  margin-left: auto; /* Push button to the right */
+  margin-left: auto;
   flex-shrink: 0;
 }
 
 .alert button:hover {
-  background: rgba(255, 255, 255, 0.35); /* Slightly lighter on hover */
+  background: rgba(255, 255, 255, 0.35);
 }
 
-/* Animation for Alert Entry - Slide Down + Fade In */
+/* Animation for Alert Entry */
 @keyframes slideFadeIn {
   to {
     opacity: 1;
@@ -197,7 +306,7 @@ nav a:hover {
   }
 }
 
-/* Animation for Alert Dismissal (Add a class e.g., 'dismissing' via JS) */
+/* Animation for Alert Dismissal (Add class 'dismissing' via JS) */
 .alert.dismissing {
   animation: slideFadeOut 0.4s ease-in forwards;
 }
@@ -209,19 +318,20 @@ nav a:hover {
   }
   to {
     opacity: 0;
-    transform: scale(0.9); /* Slight shrink on exit */
-    margin-bottom: -60px; /* Adjust based on alert height to avoid layout jump */
+    transform: scale(0.9);
+    margin-bottom: calc(-1 * (2 * var(--standard-padding) + 30px)); /* Approximate height */
     padding-top: 0;
     padding-bottom: 0;
     border-width: 0;
+    min-height: 0;
   }
 }
 
 
-/* Tile Layout for Health Dashboard - iOS Widget/Card Style */
+/* === Tile Layout for Health Dashboard - iOS Widget/Card Style === */
 #summary {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust minmax */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--standard-padding);
   margin-top: 1.5rem;
 }
@@ -230,27 +340,27 @@ nav a:hover {
   background-color: var(--secondary-color);
   border-radius: var(--standard-border-radius);
   padding: var(--standard-padding);
-  box-shadow: 0 1px 3px var(--shadow-color); /* Softer shadow for tiles */
-  font-size: 17px; /* Match base font size */
+  box-shadow: 0 1px 3px var(--shadow-color);
+  font-size: 17px;
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: flex-start; /* Align content left */
-  gap: 8px; /* Space between elements inside tile */
-  font-weight: 400; /* Regular weight for content */
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 400;
   transition: background-color var(--transition-medium);
 }
 
 /* Example structure within a tile */
 .tile .tile-title {
     font-size: 15px;
-    font-weight: 600; /* Semi-bold title */
+    font-weight: 600;
     color: var(--text-color);
-    opacity: 0.8; /* Slightly subdued title */
+    opacity: 0.8;
 }
 
 .tile .tile-value {
-    font-size: 28px; /* Larger value text */
-    font-weight: 300; /* Lighter weight for prominent numbers */
+    font-size: 28px;
+    font-weight: 300;
     color: var(--text-color);
 }
 
@@ -258,24 +368,24 @@ nav a:hover {
     font-size: 15px;
     font-weight: 500;
     color: var(--text-color);
-    opacity: 0.6; /* Subdued unit text */
+    opacity: 0.6;
 }
 
 
-/* Trends Section - iOS List Style */
+/* === Trends Section - iOS List Style === */
 #trends {
   margin-top: 1.5rem;
 }
 
 .trend {
   background-color: var(--secondary-color);
-  padding: 12px var(--standard-padding); /* List item padding */
-  border-radius: var(--standard-border-radius); /* Consistent radius */
-  box-shadow: 0 1px 3px var(--shadow-color); /* Consistent shadow */
+  padding: 12px var(--standard-padding);
+  border-radius: var(--standard-border-radius);
+  box-shadow: 0 1px 3px var(--shadow-color);
   font-size: 17px;
   font-weight: 400;
   margin-bottom: var(--standard-padding);
-  display: flex; /* Use flex for layout */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   transition: background-color var(--transition-medium);
@@ -283,40 +393,38 @@ nav a:hover {
 
 /* Example structure within a trend item */
 .trend .trend-label {
-    /* Style for the label (e.g., "Heart Rate Trend") */
     font-weight: 500;
 }
 
 .trend .trend-indicator {
-    /* Style for an indicator (e.g., arrow icon, percentage) */
     font-size: 15px;
     font-weight: 600;
-    color: var(--system-green); /* Example: Green for positive trend */
+    color: var(--system-green); /* Example color */
 }
 
 
-/* Responsive Design Adjustments */
+/* === General Responsive Design Adjustments (Excluding Nav) === */
 @media screen and (max-width: 1200px) {
   #summary {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjust for larger screens */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 }
 
 @media screen and (max-width: 768px) {
   body {
-      font-size: 16px; /* Adjust base size for tablets */
+      font-size: 16px; /* Adjust base size */
   }
   #summary {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
   .tile, .trend {
     font-size: 16px;
-    padding: 14px; /* Slightly adjust padding */
+    padding: 14px;
   }
   .tile .tile-value { font-size: 26px; }
 
   .alert {
-    font-size: 15px; /* Adjust alert text size */
+    font-size: 15px;
     padding: 14px;
     gap: 10px;
   }
@@ -327,17 +435,13 @@ nav a:hover {
 
 @media screen and (max-width: 480px) {
   body {
-    font-size: 15px; /* Base size for phones */
+    font-size: 15px;
   }
   main {
-    padding: 12px; /* Reduce padding on small screens */
+    padding: 12px;
   }
-   nav {
-     padding: 10px 12px;
-   }
   #summary {
-    /* Stack tiles vertically on small phones */
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Stack tiles */
     gap: 12px;
   }
   .tile, .trend {
@@ -355,10 +459,12 @@ nav a:hover {
     font-size: 14px;
     padding: 12px;
     gap: 8px;
-    /* Optional: Stack alert content if needed */
+    /* Optional: Stack alert content if needed, though flex-start usually works */
     /* flex-direction: column; align-items: flex-start; */
   }
   .alert-icon { font-size: 1.3rem; }
   .alert button { font-size: 12px; padding: 4px 8px; }
 
 }
+
+/* Add any specific page styles or further customizations below */
