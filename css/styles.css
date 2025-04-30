@@ -1,89 +1,132 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  line-height: 1.6;
 }
 
 nav {
   background-color: #333;
-  padding: 10px 20px;
+  padding: 20px;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
   list-style-type: none;
-  padding: 0;
 }
 
 nav ul li {
   display: inline-block;
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 1.1rem;
   text-transform: uppercase;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
 nav ul li a:hover {
-  color: #00bcd4;
+  background-color: #00bcd4;
 }
 
 main {
-  padding: 20px;
+  padding: 40px 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 40px auto;
 }
 
 h1 {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  font-weight: 600;
   color: #333;
 }
 
 #summary {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
   margin-bottom: 40px;
 }
 
 .tile {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-size: 1.2em;
+  font-size: 1.5rem;
   color: #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tile:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
 #trends {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 40px;
 }
 
 .trend {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  font-size: 1.2em;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  width: 48%;
+  font-size: 1.2rem;
   color: #333;
 }
 
 #alerts {
   background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
 }
 
 #alerts-container {
-  font-size: 1.2em;
+  font-size: 1.3rem;
   color: #f44336;
+}
+
+#trends .trend h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.tile p,
+.trend p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  #trends {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #trends .trend {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
