@@ -1,15 +1,13 @@
-<!-- Root index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Health Dashboard</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="style.css" />
   <script defer src="js/main.js"></script>
 </head>
 <body>
-  <h1>Welcome to Your Health Tracker</h1>
   <nav>
     <ul>
       <li><a href="activity/index.html">Activity</a></li>
@@ -34,5 +32,26 @@
       <li><a href="settings/index.html">Settings</a></li>
     </ul>
   </nav>
+
+  <main>
+    <h1>Health Dashboard</h1>
+    <section id="summary">
+      <div class="tile" id="steps">Steps: Loading...</div>
+      <div class="tile" id="calories">Active Energy: Loading...</div>
+      <div class="tile" id="sleep">Sleep Duration: Loading...</div>
+      <div class="tile" id="heart">Resting Heart Rate: Loading...</div>
+    </section>
+
+    <section id="trends">
+      <h2>Weekly Trends</h2>
+      <div class="trend" id="weekly-steps">Steps this week: Loading...</div>
+      <div class="trend" id="weekly-sleep">Sleep this week: Loading...</div>
+    </section>
+
+    <section id="alerts">
+      <h2>Health Alerts</h2>
+      <div id="alerts-container">No alerts.</div>
+    </section>
+  </main>
 </body>
 </html>
